@@ -9,8 +9,17 @@ alias prune="git remote prune origin"
 alias prune-merged='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 alias super-prune='prune; prune-merged'
 alias master="gco master"
+alias develop="gco develop"
 alias push="git push"
 alias pull="git pull"
+
+alias hf="git hf"
+alias hff="git hf feature"
+alias hfu="git hf update"
+alias hfp="git hf push"
+alias hffs="git hf feature start"
+alias hfff="git hf feature finish"
+alias hffco="git hf feature checkout"
 
 git_add_all_commit_push() {
 
@@ -74,6 +83,7 @@ alias pr="./run_server"
 # dirs
 alias ws="cd $HOME/Workspace"
 alias bo="cd $HOME/Workspace/backoffice"
+alias picks="cd $HOME/Workspace/picks"
 alias ink="cd $HOME/Workspace/inkstagram"
 alias contracts="cd $HOME/Workspace/contracts"
 alias waw="cd $HOME/Workspace/waw"
@@ -82,7 +92,18 @@ alias waw="cd $HOME/Workspace/waw"
 alias wts="ssh whatsthescore@whatsthescore.webfactional.com"
 
 # edit
-alias sl="subl -w"
+subl_no_hang() {
+
+    if [[ $# -ne 1 ]]; then
+        echo "Error, USAGE: sl FILE"
+        return
+    fi
+
+    subl -w $1 &
+    echo "Sublimed $1";
+}
+
+alias sl=subl_no_hang
 alias profile="subl -w ~/.bash_profile"
 alias sourcep="source ~/.bash_profile"
 
@@ -107,3 +128,8 @@ export PATH=$PATH:$NVIDIA_PATH:$BIN_HOME:$PLAY2_HOME
 export MAVEN_OPTS='-Xms1024m -Xmx2048m -XX:MaxPermSize=128m'
 
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+export vm_mem=6144
+export init_role=devvm_headless
+export init_env=qa
+export init_repoprivkeyfile=github.pem
